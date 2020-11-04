@@ -20,12 +20,20 @@
       <% if member_logged_in? %>
         <p>Nickname of logged in user: <%= current_member.nickname %></p>
         <%= current_member.password_digest %>
-        <%= link_to 'Log out', '/member/logout', method: 'get' %><br>
-        <%= link_to 'modify', '/member/modify', method: 'get' %><br>
+        <%= link_to 'Log out', '/member/logout', method: 'get' %> /
+        <%= link_to 'modify', '/member/modify', method: 'get' %> /
         <%= link_to 'Withdrawal', '/member/withdrawal', method: 'get' %>
       <% else %>
-        <%= link_to 'Log in', '/member/login', method: 'get' %>
+        <%= link_to 'Log in', '/member/login', method: 'get' %> /
         <%= link_to 'Register', '/member/register', method: 'get' %>
+      <% end %><br><br>
+      <%= link_to '게시물 작성', '/post/write', method: 'get' %>
+      <hr style="margin: 1vh 0">
+      <h4>게시물</h4>
+      <% @posts.each do |post| %>
+        <a href="/post/view/<%= post.id %>">
+          <p><%= post.title %></p>
+        </a>
       <% end %>
     </div>
   </div>

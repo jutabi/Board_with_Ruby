@@ -22,4 +22,8 @@ module MemberHelper
     # !current_member.nil?
     !session[:username].nil?
   end
+
+  def find_nickname(id)
+    Member.find(id).nickname
+  end
 end

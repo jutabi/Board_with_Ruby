@@ -1,0 +1,64 @@
+<html>
+<head>
+  <title>Post view Page</title>
+  <style>
+      .infoBox {
+          min-width: 50vw;
+      }
+      .title, .content, .replyInput {
+          width: 100%;
+          text-align: left;
+          border-color: #666666;
+      }
+      .content {
+          color: black;
+          min-height: 50vh;
+          resize: none;
+          height: auto;
+      }
+      .replyInput {
+          width: 90%;
+      }
+
+      @media (max-width: 958px) {
+          .infoBox {
+              width: 80vw;
+          }
+      }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="infoBox">
+    <div class="post">
+      <h3><%= @post.title %></h3>
+      <p style="text-align: right">작성자: <%= find_nickname(@post.member_id) %></p>
+      <div style="text-align: right; padding: 0.5vh 0">
+        <% if current_member.id == @post.member_id %>
+          <button onclick="location.href='/post/modify/<%= @post.id %>'">수정하기</button>
+          <button onclick="location.href='/post/delete/<%= @post.id %>'">삭제하기</button>
+        <% end %>
+      </div>
+      <textarea class="content" readonly><%= @post.content %></textarea><br>
+    </div>
+    <hr style="margin: 1vh 0">
+    <div class="replies">
+      <h3>댓글</h3>
+      <% @post.replies.each do |reply| %>
+        <div class="reply">
+          <p><%= reply.content %></p>
+          <% if reply.member_id == current_member.id %>
+            <button onclick="modify(<%= reply.id %>, '<%= reply.content %>')">수정</button>
+            <button onclick="location.href='/reply/delete/<%= reply.id %>'">삭제</button>
+          <% end %>
+        </div>
+      <% end %>
+      <form action="/reply/create/<%= @post.id %>" method="post">
+        <input class="replyInput" type="text" name="content" required placeholder="댓글 작성">
+        <input type="submit">
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

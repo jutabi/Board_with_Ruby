@@ -37,11 +37,11 @@ html, body {
     box-shadow: 0 0 80px black;
     /*width: 100%;*/
 }
-.infoBox form {
+.infoBox form, .infoBox .post {
     padding: 5vh;
     text-align: center;
 }
-.infoBox form input, button {
+input, button, textarea {
     width: auto;
     padding: .5em .75em;
     color: #999999;

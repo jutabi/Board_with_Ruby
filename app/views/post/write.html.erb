@@ -1,0 +1,35 @@
+<html>
+<head>
+  <title>Post write Page</title>
+  <style>
+      .infoBox {
+          min-width: 50vw;
+      }
+      .title, .content {
+          width: 100%;
+          text-align: left;
+          border-color: #666666;
+      }
+      .content {
+          min-height: 50vh;
+      }
+
+      @media (max-width: 958px) {
+          .infoBox {
+              width: 80vw;
+          }
+      }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="infoBox">
+      <form action="/post/create" method="post">
+        <input class="title" type="text" name="title" required maxlength="100" placeholder="제목"><br>
+        <textarea class="content" name="content" required placeholder="내용"></textarea><br>
+        <button type="submit">저장</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

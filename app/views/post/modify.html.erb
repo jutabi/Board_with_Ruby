@@ -1,0 +1,35 @@
+<html>
+<head>
+  <title>Post modify Page</title>
+  <style>
+      .infoBox {
+          min-width: 50vw;
+      }
+      .title, .content {
+          width: 100%;
+          text-align: left;
+          border-color: #666666;
+      }
+      .content {
+          min-height: 50vh;
+      }
+
+      @media (max-width: 958px) {
+          .infoBox {
+              width: 80vw;
+          }
+      }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="infoBox">
+    <form action="/post/update/<%= @post.id %>" method="post">
+      <input class="title" type="text" name="title" required maxlength="100" value="<%= @post.title %>"><br>
+      <textarea class="content" name="content" required><%= @post.content %></textarea><br>
+      <button type="submit">저장</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>
