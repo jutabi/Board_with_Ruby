@@ -1,0 +1,26 @@
+<html>
+<head>
+  <title>member modify page</title>
+</head>
+<body>
+<div class="container">
+  <div class="infoBox">
+    <form action="/member/modify_process" method="post">
+      <%= flash[:modifyFail] %>
+      <h4>Member modify</h4>
+      <hr style="margin: 1vh 0">
+      <input type="text" name="username"
+             required maxlength="10" placeholder="username" value="<%= @member.username %>" readonly><br>
+      <input type="password" name="password"
+             required minlength="8" maxlength="20" placeholder="password"><br>
+      <input type="text" name="email"
+             required maxlength="30" placeholder="Email" value="<%= @member.email %>"><br>
+      <input type="text" name="nickname"
+             required maxlength="10" placeholder="Nickname" value="<%= @member.nickname %>"><br>
+      <hr style="margin: 1vh 0">
+      <button type="submit">정보수정</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

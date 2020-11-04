@@ -1,0 +1,22 @@
+<html>
+<head>
+  <title>member register page</title>
+  <style>
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="infoBox">
+      <form action="/member/login_process" method="post">
+        <%= flash[:loginFail] %>
+        <h4>Member Log in</h4>
+        <hr style="margin: 1vh 0">
+        <input type="text" name="username" required maxlength="10" placeholder="username"><br>
+        <input type="password" name="password" required maxlength="20" placeholder="password"><br>
+        <hr style="margin: 1vh 0">
+        <button type="submit">로그인</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

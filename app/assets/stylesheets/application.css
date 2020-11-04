@@ -1,0 +1,65 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    width: 100%;
+    height: 100%;
+}
+.container {
+    height: 100%;
+    display: flex;
+    background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+}
+.infoBox {
+    min-width: 25vw;
+    height: auto;
+    margin: auto auto;
+    text-align: center;
+    border: 1vh solid lightcoral;
+    background-color: white;
+    box-shadow: 0 0 80px black;
+    /*width: 100%;*/
+}
+.infoBox form {
+    padding: 5vh;
+    text-align: center;
+}
+.infoBox form input, button {
+    width: auto;
+    padding: .5em .75em;
+    color: #999999;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #fdfdfd;
+    /*cursor: pointer;*/
+    border: 2px solid #ebebeb;
+    border-bottom-color: #e2e2e2;
+    border-radius: .25em;
+    margin-bottom: 1px;
+    text-align: center;
+}
+button {
+    cursor: pointer;
+}
+button:hover {
+    background-color: lightcoral;
+    border: 2px solid coral;
+    color: black;
+}

@@ -1,0 +1,33 @@
+<html>
+<head>
+  <title>Main Page</title>
+  <style>
+      .infoBox {
+          min-width: 50vw;
+      }
+
+      @media (max-width: 958px) {
+          .infoBox {
+              width: 80vw;
+          }
+      }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="infoBox">
+      <h1>Hi</h1>
+      <% if member_logged_in? %>
+        <p>Nickname of logged in user: <%= current_member.nickname %></p>
+        <%= current_member.password_digest %>
+        <%= link_to 'Log out', '/member/logout', method: 'get' %><br>
+        <%= link_to 'modify', '/member/modify', method: 'get' %><br>
+        <%= link_to 'Withdrawal', '/member/withdrawal', method: 'get' %>
+      <% else %>
+        <%= link_to 'Log in', '/member/login', method: 'get' %>
+        <%= link_to 'Register', '/member/register', method: 'get' %>
+      <% end %>
+    </div>
+  </div>
+</body>
+</html>
