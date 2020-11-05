@@ -26,5 +26,12 @@ Rails.application.routes.draw do
   get 'post/modify/:post_id' => 'post#modify'
   post '/post/update/:post_id' => 'post#update'
 
-  get 'post/delete/:post_id' => 'post#delete'
+  get 'post/remove/:post_id' => 'post#remove'
+
+
+  post '/reply/create/:post_id' => 'reply#create'
+
+  post '/reply/update/:reply_id' => 'reply#update'
+
+  get '/reply/remove/:reply_id' => 'reply#remove'
 end

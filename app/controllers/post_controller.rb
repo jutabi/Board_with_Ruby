@@ -31,7 +31,7 @@ class PostController < ApplicationController
     redirect_to '/post/view/' + params[:post_id]
   end
 
-  def delete
+  def remove
     post = Post.find(params[:post_id])
     if post.member_id == Member.find_by(username: session[:username]).id
       post.delete
