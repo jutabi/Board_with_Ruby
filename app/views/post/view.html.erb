@@ -3,7 +3,7 @@
   <title>Post view Page</title>
   <style>
       .infoBox {
-          min-width: 50vw;
+          width: 50vw;
       }
       .title, .content, .replyInput {
           width: 100%;
@@ -21,11 +21,17 @@
       }
       .reply {
           margin: 1vh 0 0 0;
-          /*border-top: 1px dotted #666666;*/
-          /*border-bottom: 1px dotted #666666;*/
+          display: flex;
       }
       .reply p, .reply button {
-          display: inline
+          float: left;
+          display: inline;
+          margin-left: 1vw;
+          height: fit-content;
+          align-self: center;
+      }
+      .reply p {
+          padding: .5em 0;
       }
 
       @media (max-width: 958px) {
@@ -42,9 +48,11 @@
       <h3><%= @post.title %></h3>
       <p style="text-align: right">작성자: <%= find_nickname(@post.member_id) %></p>
       <div style="text-align: right; padding: 0.5vh 0">
-        <% if current_member.id == @post.member_id %>
-          <button onclick="location.href='/post/modify/<%= @post.id %>'">수정하기</button>
-          <button onclick="location.href='/post/remove/<%= @post.id %>'">삭제하기</button>
+        <% if member_logged_in? %>
+          <% if current_member.id == @post.member_id %>
+            <button onclick="location.href='/post/modify/<%= @post.id %>'">수정하기</button>
+            <button onclick="location.href='/post/remove/<%= @post.id %>'">삭제하기</button>
+          <% end %>
         <% end %>
       </div>
       <textarea class="content" readonly><%= @post.content %></textarea><br>
@@ -62,7 +70,7 @@
               modifyForm.action = "/reply/update/"+id;
               modifyForm.method = "post";
               modifyForm.id = "modifyForm"+id;
-              modifyForm.style = "display: contents";
+              modifyForm.style = "display: contents;";
 
               let modifyContent = document.createElement("input");
               modifyContent.name = "content";
@@ -95,17 +103,30 @@
       <h3>댓글</h3>
       <% @post.replies.each do |reply| %>
         <div class="reply" id="reply<%= reply.id %>">
-          <p><%= reply.content %></p>
-          <% if reply.member_id == current_member.id %>
-            <button onclick="modify(<%= reply.id %>, '<%= reply.content %>');">수정</button>
-            <button onclick="location.href='/reply/remove/<%= reply.id %>'">삭제</button><br>
+          <p style="border: 1px solid cornflowerblue; width: 12%;"><%= find_nickname(reply.member_id) %></p>
+          <p style="border: 1px solid palevioletred; width: 65%;"><%= reply.content %></p>
+          <% if member_logged_in? %>
+            <% if reply.member_id == current_member.id %>
+              <button style="width: 8%" onclick="modify(<%= reply.id %>, '<%= reply.content %>');">수정</button>
+              <button style="width: 8%; margin-right: 1vw;" onclick="location.href='/reply/remove/<%= reply.id %>'">삭제</button><br>
+            <% else %>
+              <button style="width: 8%; visibility: hidden">바보</button>
+              <button style="width: 8%; margin-right: 1vw; visibility: hidden">바보</button>
+            <% end %>
           <% end %>
         </div>
       <% end %>
-      <form action="/reply/create/<%= @post.id %>" method="post">
-        <input class="replyInput" type="text" name="content" required placeholder="댓글 작성">
-        <button type="submit">제출</button>
-      </form>
+      <% if member_logged_in? %>
+        <form action="/reply/create/<%= @post.id %>" method="post">
+          <input class="replyInput" type="text" name="content" required placeholder="댓글 작성">
+          <button type="submit">제출</button>
+        </form>
+      <% else %>
+        <form>
+          <input class="replyInput" type="text" readonly placeholder="댓글을 작성하시려면 로그인해주세요.">
+          <button disabled>제출</button>
+        </form>
+      <% end %>
     </div>
   </div>
 </div>
