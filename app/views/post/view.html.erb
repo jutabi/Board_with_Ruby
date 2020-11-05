@@ -19,6 +19,14 @@
       .replyInput {
           width: 90%;
       }
+      .reply {
+          margin: 1vh 0 0 0;
+          /*border-top: 1px dotted #666666;*/
+          /*border-bottom: 1px dotted #666666;*/
+      }
+      .reply p, .reply button {
+          display: inline
+      }
 
       @media (max-width: 958px) {
           .infoBox {
@@ -36,26 +44,67 @@
       <div style="text-align: right; padding: 0.5vh 0">
         <% if current_member.id == @post.member_id %>
           <button onclick="location.href='/post/modify/<%= @post.id %>'">수정하기</button>
-          <button onclick="location.href='/post/delete/<%= @post.id %>'">삭제하기</button>
+          <button onclick="location.href='/post/remove/<%= @post.id %>'">삭제하기</button>
         <% end %>
       </div>
       <textarea class="content" readonly><%= @post.content %></textarea><br>
     </div>
     <hr style="margin: 1vh 0">
     <div class="replies">
+      <script>
+        let cnt = 0;
+          function modify(id, content) {
+              if (cnt > 0) {
+                  alert('기존의 수정폼을 취소해주세요.');
+                  return false;
+              }
+              let modifyForm = document.createElement("form");
+              modifyForm.action = "/reply/update/"+id;
+              modifyForm.method = "post";
+              modifyForm.id = "modifyForm"+id;
+              modifyForm.style = "display: contents";
+
+              let modifyContent = document.createElement("input");
+              modifyContent.name = "content";
+              modifyContent.type = "text";
+              modifyContent.value = content;
+              modifyContent.style = "width: 70%;";
+
+              let modifySubmit = document.createElement("button");
+              modifySubmit.type = "submit";
+              modifySubmit.textContent = "제출";
+
+              let modifyCancel = document.createElement("button");
+              modifyCancel.type = "button";
+              modifyCancel.textContent = "취소";
+              modifyCancel.onclick = function() {
+                  document.getElementById('modifyForm'+id).remove();
+                  this.remove();
+                  cnt--;
+              };
+
+              modifyForm.appendChild(modifyContent);
+              modifyForm.appendChild(modifySubmit);
+
+              let test = document.getElementById('reply'+id).lastChild;
+              document.getElementById('reply'+id).insertBefore(modifyForm.cloneNode(true), test);
+              document.getElementById('reply'+id).appendChild(modifyCancel);
+              cnt++;
+          }
+      </script>
       <h3>댓글</h3>
       <% @post.replies.each do |reply| %>
-        <div class="reply">
+        <div class="reply" id="reply<%= reply.id %>">
           <p><%= reply.content %></p>
           <% if reply.member_id == current_member.id %>
-            <button onclick="modify(<%= reply.id %>, '<%= reply.content %>')">수정</button>
-            <button onclick="location.href='/reply/delete/<%= reply.id %>'">삭제</button>
+            <button onclick="modify(<%= reply.id %>, '<%= reply.content %>');">수정</button>
+            <button onclick="location.href='/reply/remove/<%= reply.id %>'">삭제</button><br>
           <% end %>
         </div>
       <% end %>
       <form action="/reply/create/<%= @post.id %>" method="post">
         <input class="replyInput" type="text" name="content" required placeholder="댓글 작성">
-        <input type="submit">
+        <button type="submit">제출</button>
       </form>
     </div>
   </div>
