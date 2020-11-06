@@ -22,16 +22,21 @@
       .reply {
           margin: 1vh 0 0 0;
           display: flex;
+          justify-content: space-around;
+          align-content: space-around;
+          flex-wrap: wrap;
       }
       .reply p, .reply button {
           float: left;
           display: inline;
-          margin-left: 1vw;
+          /*margin-left: 1vw;*/
           height: fit-content;
           align-self: center;
       }
       .reply p {
           padding: .5em 0;
+          border: 1px solid;
+          border-radius: .25em;
       }
 
       @media (max-width: 958px) {
@@ -76,7 +81,7 @@
               modifyContent.name = "content";
               modifyContent.type = "text";
               modifyContent.value = content;
-              modifyContent.style = "width: 70%;";
+              modifyContent.style = "width: 80%;";
 
               let modifySubmit = document.createElement("button");
               modifySubmit.type = "submit";
@@ -103,15 +108,15 @@
       <h3>댓글</h3>
       <% @post.replies.each do |reply| %>
         <div class="reply" id="reply<%= reply.id %>">
-          <p style="border: 1px solid cornflowerblue; width: 12%;"><%= find_nickname(reply.member_id) %></p>
-          <p style="border: 1px solid palevioletred; width: 65%;"><%= reply.content %></p>
+          <p style="border-color: cornflowerblue; width: 12%;"><%= find_nickname(reply.member_id) %></p>
+          <p style="border-color: palevioletred; width: 65%;"><%= reply.content %></p>
           <% if member_logged_in? %>
             <% if reply.member_id == current_member.id %>
               <button style="width: 8%" onclick="modify(<%= reply.id %>, '<%= reply.content %>');">수정</button>
-              <button style="width: 8%; margin-right: 1vw;" onclick="location.href='/reply/remove/<%= reply.id %>'">삭제</button><br>
+              <button style="width: 8%;" onclick="location.href='/reply/remove/<%= reply.id %>'">삭제</button>
             <% else %>
               <button style="width: 8%; visibility: hidden">바보</button>
-              <button style="width: 8%; margin-right: 1vw; visibility: hidden">바보</button>
+              <button style="width: 8%; visibility: hidden">바보</button>
             <% end %>
           <% end %>
         </div>

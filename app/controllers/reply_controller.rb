@@ -4,7 +4,7 @@ class ReplyController < ApplicationController
                  post_id: params[:post_id],
                  content: params[:content])
 
-    redirect_back fallback_location: ''
+    redirect_back fallback_location: '/'
     # redirect_to '/post/view/' + params[:post_id]
   end
 
