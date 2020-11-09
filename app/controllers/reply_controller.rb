@@ -4,8 +4,8 @@ class ReplyController < ApplicationController
                  post_id: params[:post_id],
                  content: params[:content])
 
-    redirect_back fallback_location: '/'
     # redirect_to '/post/view/' + params[:post_id]
+    redirect_back fallback_location: ''
   end
 
   def update
@@ -14,6 +14,7 @@ class ReplyController < ApplicationController
       reply.content = params[:content]
       reply.save
     end
+
     redirect_back fallback_location: ''
   end
 
@@ -21,6 +22,7 @@ class ReplyController < ApplicationController
     reply = Reply.find(params[:reply_id])
     reply.delete if current_member.id == reply.member_id
 
-    redirect_to '/post/view/' + reply.post_id.to_s
+    # redirect_to '/post/view/' + reply.post_id.to_s
+    redirect_back fallback_location: ''
   end
 end

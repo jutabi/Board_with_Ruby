@@ -7,9 +7,26 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
 
   <body>
+    <nav>
+      <div class="nav-wrapper">
+<!--        <a href="/" class="brand-logo center">Logo</a>-->
+        <ul>
+          <% if member_logged_in? %>
+            <li><a href="/post/write">Posting</a></li>
+            <li><a href="/member/logout">Log Out</a></li>
+            <li><a href="/member/modify">Membership Modify</a></li>
+            <li><a href="/member/withdrawal">Membership withdrawal</a></li>
+          <% else %>
+            <li><a href="/member/register">Register</a></li>
+            <li><a href="/member/login">Log In</a></li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
     <%= yield %>
   </body>
 </html>
