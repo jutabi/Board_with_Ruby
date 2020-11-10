@@ -45,9 +45,14 @@ nav ul li {
     /*width: 20vw;*/
     height: 100%;
     /*border: 1px solid cadetblue;*/
+}
+nav ul.right-border-nav-menu li {
     border-right: 1px solid white;
 }
-nav ul li.active-nav {
+nav ul.left-border-nav-menu li {
+    border-left: 1px solid white;
+}
+nav ul li.active-nav-menu {
     background-color:rgba(0, 0, 0, 0.2);
 }
 nav ul li:hover {

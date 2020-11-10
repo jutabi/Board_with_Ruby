@@ -14,32 +14,43 @@
     <nav>
       <div class="nav-wrapper">
 <!--        <a href="/" class="brand-logo center">Logo</a>-->
-        <ul>
-          <li id="nav-home"><a href="/">Home</a></li>
-          <% if member_logged_in? %>
-            <li id="nav-write"><a href="/post/write">Posting</a></li>
-            <li id="nav-logout"><a href="/member/logout">Log Out</a></li>
-            <li id="nav-modify"><a href="/member/modify">Modify</a></li>
-            <li id="nav-withdrawal"><a href="/member/withdrawal">withdrawal</a></li>
-          <% else %>
-            <li id="nav-register"><a href="/member/register">Register</a></li>
-            <li id="nav-login"><a href="/member/login">Log In</a></li>
-          <% end %>
-        </ul>
+        <div style="display: flex; justify-content: space-between">
+          <div style="display: flex; justify-content: flex-start">
+            <ul class="right-border-nav-menu">
+              <li id="nav-home"><a href="/">Home</a></li>
+              <% if member_logged_in? %>
+                <li id="nav-write"><a href="/post/write">Posting</a></li>
+              <% end %>
+            </ul>
+          </div>
+          <div style="display: flex; justify-content: flex-end">
+            <ul class="left-border-nav-menu">
+              <% if member_logged_in? %>
+                <li id="nav-logout"><a href="/member/logout">Log Out</a></li>
+                <li id="nav-modify"><a href="/member/modify">Modify</a></li>
+                <li id="nav-withdrawal"><a href="/member/withdrawal">withdrawal</a></li>
+              <% else %>
+                <li id="nav-register"><a href="/member/register">Register</a></li>
+                <li id="nav-login"><a href="/member/login">Log In</a></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+
         <script>
             console.log(location.pathname);
             if (location.pathname === '/') {
-                document.getElementById('nav-home').className = "active-nav";
+                document.getElementById('nav-home').className = "active-nav-menu";
             } else if (location.pathname === '/post/write') {
-                document.getElementById('nav-write').className = "active-nav";
+                document.getElementById('nav-write').className = "active-nav-menu";
             } else if (location.pathname === '/member/modify') {
-                document.getElementById('nav-modify').className = "active-nav";
+                document.getElementById('nav-modify').className = "active-nav-menu";
             } else if (location.pathname === '/member/withdrawal') {
-                document.getElementById('nav-withdrawal').className = "active-nav";
+                document.getElementById('nav-withdrawal').className = "active-nav-menu";
             } else if (location.pathname === '/member/register') {
-                document.getElementById('nav-register').className = "active-nav";
+                document.getElementById('nav-register').className = "active-nav-menu";
             } else if (location.pathname === '/member/login') {
-                document.getElementById('nav-login').className = "active-nav";
+                document.getElementById('nav-login').className = "active-nav-menu";
             }
         </script>
       </div>
