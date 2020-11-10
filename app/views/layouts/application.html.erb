@@ -26,9 +26,13 @@
           <div style="display: flex; justify-content: flex-end">
             <ul class="left-border-nav-menu">
               <% if member_logged_in? %>
+                <li id="nav-modify"><a href="/member/modify" style="padding: 0">
+                  <p style="font-size: 0.8rem">Membership</p>
+                  Modify</a></li>
+                <li id="nav-withdrawal"><a href="/member/withdrawal" style="padding: 0">
+                  <p style="font-size: 0.8rem">Membership</p>
+                  withdrawal</a></li>
                 <li id="nav-logout"><a href="/member/logout">Log Out</a></li>
-                <li id="nav-modify"><a href="/member/modify">Modify</a></li>
-                <li id="nav-withdrawal"><a href="/member/withdrawal">withdrawal</a></li>
               <% else %>
                 <li id="nav-register"><a href="/member/register">Register</a></li>
                 <li id="nav-login"><a href="/member/login">Log In</a></li>

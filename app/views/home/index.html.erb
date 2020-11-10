@@ -2,20 +2,25 @@
 <head>
   <title>Main Page</title>
   <style>
-      .infoBox {
-          min-width: 50vw;
-      }
-      .postTitle {
-          border: 1px solid #666666;
-          border-radius: .25rem;
-          margin: 0 1vh 1vh 0.5vh;
-      }
+    * {
+        font-weight: lighter;
+    }
+    .infoBox {
+        min-width: 50vw;
+    }
+    .postTitle {
+        /*border: 1px solid #666666;*/
+        /*border-radius: .25rem;*/
+        border-bottom: 1px solid #666666;
+        padding-bottom: 1vh;
+        margin: 0 1vh 1vh 0.5vh;
+    }
 
-      @media (max-width: 958px) {
-          .infoBox {
-              width: 80vw;
-          }
-      }
+    @media (max-width: 958px) {
+        .infoBox {
+            width: 80vw;
+        }
+    }
   </style>
 </head>
 <body>
@@ -24,23 +29,17 @@
       <h1 style="display: inline">Hi </h1>
       <% if member_logged_in? %>
         <h1 style="display: inline"><%= current_member.nickname %></h1><br>
-        <%= link_to 'Log out', '/member/logout', method: 'get' %> /
-        <%= link_to 'modify', '/member/modify', method: 'get' %> /
-        <%= link_to 'Withdrawal', '/member/withdrawal', method: 'get' %>
-      <% else %>
-        <br>
-        <%= link_to 'Log in', '/member/login', method: 'get' %> /
-        <%= link_to 'Register', '/member/register', method: 'get' %>
-      <% end %><br><br>
-      <%= link_to '게시물 작성', '/post/write', method: 'get' %>
+      <% end %>
+<!--      <br>-->
+      <%#= link_to '게시물 작성', '/post/write', method: 'get' %>
       <hr style="margin: 1vh 0">
-      <h4>게시물</h4><br>
+      <h4>Posts</h4><br>
       <% @posts.each do |post| %>
-        <div class="postTitle">
+        <div class="postTitle" style="display: flex; justify-content: space-between">
           <a href="/post/view/<%= post.id %>">
-            <p><%= post.title %></p>
-            <p style="text-align: right; font-size: 0.8rem; padding-right: 0.2vh">작성자: <%= find_nickname(post.member_id) %></p>
-          </a>
+            <p><%= post.title %></p></a>
+          <p style="text-align: right; font-size: 0.8rem; padding-right: 0.2vh">
+            작성자: <%= find_nickname(post.member_id) %></p>
         </div>
       <% end %>
     </div>
