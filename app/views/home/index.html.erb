@@ -11,9 +11,15 @@
     .postTitle {
         /*border: 1px solid #666666;*/
         /*border-radius: .25rem;*/
-        border-bottom: 1px solid #666666;
         padding-bottom: 1vh;
         margin: 0 1vh 1vh 0.5vh;
+        border-bottom: 1px solid white;
+    }
+    .postTitle:hover {
+        border-bottom: 1px solid #666666;
+    }
+    .postTitle a {
+        text-decoration: none;
     }
 
     @media (max-width: 958px) {
@@ -26,19 +32,20 @@
 <body>
   <div class="container">
     <div class="infoBox">
-      <h1 style="display: inline">Hi </h1>
-      <% if member_logged_in? %>
-        <h1 style="display: inline"><%= current_member.nickname %></h1><br>
-      <% end %>
+<!--      <h1 style="display: inline">Hi </h1>-->
+      <%# if member_logged_in? %>
+<!--        <h1 style="display: inline"><%#= current_member.nickname %></h1><br>-->
+      <%# end %>
 <!--      <br>-->
       <%#= link_to '게시물 작성', '/post/write', method: 'get' %>
+<!--      <hr style="margin: 1vh 0">-->
+      <h1>Posts</h1>
       <hr style="margin: 1vh 0">
-      <h4>Posts</h4><br>
       <% @posts.each do |post| %>
         <div class="postTitle" style="display: flex; justify-content: space-between">
           <a href="/post/view/<%= post.id %>">
             <p><%= post.title %></p></a>
-          <p style="text-align: right; font-size: 0.8rem; padding-right: 0.2vh">
+          <p style="font-size: 0.8rem; padding-right: 0.2vh">
             작성자: <%= find_nickname(post.member_id) %></p>
         </div>
       <% end %>

@@ -25,6 +25,7 @@
           justify-content: space-around;
           align-content: space-around;
           flex-wrap: wrap;
+          /*border-bottom: 1px solid;*/
       }
       .reply p, .reply button {
           float: left;
@@ -35,8 +36,8 @@
       }
       .reply p {
           padding: .5em 0;
-          border: 1px solid;
-          border-radius: .25em;
+          border-bottom: 1px solid;
+          /*border-radius: .25em;*/
       }
 
       @media (max-width: 958px) {
@@ -63,7 +64,7 @@
       <textarea class="content" readonly><%= @post.content %></textarea><br>
     </div>
     <hr style="margin: 1vh 0">
-    <div class="replies">
+    <div class="replies" id="replies">
       <script>
         let cnt = 0;
           function modify(id, content) {
@@ -108,7 +109,7 @@
       <h3>댓글</h3>
       <% @post.replies.each do |reply| %>
         <div class="reply" id="reply<%= reply.id %>">
-          <p style="border-color: cornflowerblue; width: 12%;"><%= find_nickname(reply.member_id) %></p>
+          <p style="border-color: #e2e2e2; width: 12%;"><%= find_nickname(reply.member_id) %></p>
           <p style="border-color: palevioletred; width: 65%;"><%= reply.content %></p>
           <% if member_logged_in? %>
             <% if reply.member_id == current_member.id %>
@@ -121,8 +122,16 @@
           <% end %>
         </div>
       <% end %>
+      <script>
+        function hello() {
+            // alert('hello');
+            console.log('hello');
+            location.reload();
+            return true;
+        }
+      </script>
       <% if member_logged_in? %>
-        <form action="/reply/create/<%= @post.id %>" method="post">
+        <form action="/reply/create/<%= @post.id %>" method="post" onsubmit="return hello(this);">
           <input class="replyInput" type="text" name="content" required placeholder="댓글 작성">
           <button type="submit">제출</button>
         </form>
