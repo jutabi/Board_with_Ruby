@@ -5,7 +5,11 @@
     <% if member_logged_in? %>
       <% if reply.member_id == current_member.id %>
         <button style="width: 8%" onclick="modify(<%= reply.id %>, '<%= reply.content %>');">수정</button>
-        <button style="width: 8%;" onclick="location.href='/reply/remove/<%= reply.id %>'">삭제</button>
+        <%= form_tag("/reply/remove/#{reply.id}", method: "post", remote: true,
+                     class: "replyDeleteButton",
+                     style: "padding: 0; width: 8%") do %>
+          <button style="width: 100%" type="submit">삭제</button>
+        <% end %>
       <% else %>
         <button style="width: 8%; visibility: hidden">바보</button>
         <button style="width: 8%; visibility: hidden">바보</button>

@@ -1,0 +1,9 @@
+while (document.getElementsByClassName("reply").length > 0) {
+    document.getElementsByClassName("reply").item(0).remove();
+}
+while (document.querySelectorAll("form").length > 0) {
+    document.querySelector("form").remove();
+}
+
+document.getElementById("replies").innerHTML +=
+    "<%= escape_javascript render 'replies' %>"

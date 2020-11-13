@@ -33,7 +33,7 @@ Rails.application.routes.draw do
 
   post '/reply/read/:post_id' => 'reply#read', defaults: { format: 'js' }
 
-  post '/reply/update/:reply_id' => 'reply#update'
+  post '/reply/update/:reply_id' => 'reply#update', defaults: { format: 'js' }
 
-  get '/reply/remove/:reply_id' => 'reply#remove'
+  post '/reply/remove/:reply_id' => 'reply#remove', defaults: { format: 'js' }
 end
