@@ -76,8 +76,8 @@
               modifyForm.action = "/reply/update/"+id;
               modifyForm.method = "post";
               modifyForm.id = "modifyForm"+id;
-              modifyForm.remote = true;
               modifyForm.style = "display: contents;";
+              modifyForm.setAttribute("data-remote", "true")
 
               let modifyContent = document.createElement("input");
               modifyContent.name = "content";
