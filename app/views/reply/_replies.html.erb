@@ -1,0 +1,30 @@
+<h3>댓글</h3>
+<% @post.replies.each do |reply| %>
+  <div class="reply" id="reply<%= reply.id %>">
+    <p style="border-color: #e2e2e2; width: 12%;"><%= find_nickname(reply.member_id) %></p>
+    <p style="border-color: palevioletred; width: 65%;"><%= reply.content %></p>
+    <% if member_logged_in? %>
+      <% if reply.member_id == current_member.id %>
+        <button style="width: 8%" onclick="modify(<%= reply.id %>, '<%= reply.content %>');">수정</button>
+        <button style="width: 8%;" onclick="location.href='/reply/remove/<%= reply.id %>'">삭제</button>
+      <% else %>
+        <button style="width: 8%; visibility: hidden">바보</button>
+        <button style="width: 8%; visibility: hidden">바보</button>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+<% if member_logged_in? %>
+  <%= form_tag("/reply/create/#{@post.id}", method: "post", remote: true) do %>
+    <input class="replyInput" type="text" name="content" required placeholder="댓글 작성">
+    <button type="submit">제출</button>
+  <% end %>
+  <%= form_tag("/reply/read/#{@post.id}", method: "post", remote: true) do %>
+    <button type="submit">댓글 새로고침ㅋㅋ</button>
+  <% end %>
+<% else %>
+  <form>
+    <input class="replyInput" type="text" readonly placeholder="댓글을 작성하시려면 로그인해주세요.">
+    <button disabled>제출</button>
+  </form>
+<% end %>

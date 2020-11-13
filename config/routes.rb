@@ -31,6 +31,8 @@ Rails.application.routes.draw do
 
   post '/reply/create/:post_id' => 'reply#create'
 
+  post '/reply/read/:post_id' => 'reply#read', defaults: { format: 'js' }
+
   post '/reply/update/:reply_id' => 'reply#update'
 
   get '/reply/remove/:reply_id' => 'reply#remove'

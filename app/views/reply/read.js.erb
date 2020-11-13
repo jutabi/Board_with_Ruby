@@ -1,0 +1,7 @@
+//document.getElementById("replies").remove();
+for (let i = 0; i < document.getElementsByClassName("reply").length; i++) {
+    document.getElementsByClassName("reply").item(0).remove();
+}
+
+document.getElementById("replies").innerHTML =
+    "<%= escape_javascript render 'replies' %>"

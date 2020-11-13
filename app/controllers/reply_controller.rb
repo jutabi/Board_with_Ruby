@@ -6,7 +6,13 @@ class ReplyController < ApplicationController
 
     # redirect_to '/post/view/' + params[:post_id]
     # redirect_back fallback_location: ''
+    # @replies = Post.find(params[:post_id]).replies
+    # redirect_to request.referer
+  end
+
+  def read
     @replies = Post.find(params[:post_id]).replies
+    @post = Post.find(params[:post_id])
   end
 
   def update
