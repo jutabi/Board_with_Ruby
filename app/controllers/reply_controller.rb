@@ -8,6 +8,8 @@ class ReplyController < ApplicationController
     # redirect_back fallback_location: ''
     # @replies = Post.find(params[:post_id]).replies
     # redirect_to request.referer
+
+    @post = Post.find(params[:post_id])
   end
 
   def read

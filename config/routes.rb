@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   get 'post/remove/:post_id' => 'post#remove'
 
 
-  post '/reply/create/:post_id' => 'reply#create'
+  post '/reply/create/:post_id' => 'reply#create', defaults: { format: 'js' }
 
   post '/reply/read/:post_id' => 'reply#read', defaults: { format: 'js' }
 

@@ -123,10 +123,6 @@
         </div>
       <% end %>
       <% if member_logged_in? %>
-<!--        <form action="/reply/create/<%#= @post.id %>" method="post" onsubmit="return hello(this);">-->
-<!--          <input class="replyInput" type="text" name="content" required placeholder="댓글 작성">-->
-<!--          <button type="submit">제출</button>-->
-<!--        </form>-->
         <%= form_tag("/reply/create/#{@post.id}", method: "post", remote: true) do %>
           <input class="replyInput" type="text" name="content" required placeholder="댓글 작성">
           <button type="submit">제출</button>
