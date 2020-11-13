@@ -13,7 +13,7 @@ class ReplyController < ApplicationController
   end
 
   def read
-    @replies = Post.find(params[:post_id]).replies
+    # @replies = Post.find(params[:post_id]).replies
     @post = Post.find(params[:post_id])
   end
 

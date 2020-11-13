@@ -21,11 +21,16 @@
       }
       .reply {
           margin: 1vh 0 0 0;
+          min-height: 5rem;
+          border-top: .15rem solid lightgrey;
           display: flex;
           justify-content: space-around;
           align-content: space-around;
           flex-wrap: wrap;
           /*border-bottom: 1px solid;*/
+      }
+      .reply:last-of-type {
+          border-bottom: .15rem solid lightgrey;
       }
       .reply p, .reply button, .replyDeleteButton {
           float: left;
@@ -36,7 +41,7 @@
       }
       .reply p {
           padding: .5em 0;
-          border-bottom: 1px solid;
+          /*border-bottom: 1px solid;*/
           /*border-radius: .25em;*/
       }
 
@@ -65,82 +70,53 @@
     </div>
     <hr style="margin: 1vh 0">
     <div class="replies" id="replies">
-      <script>
-        let cnt = 0;
-          function modify(id, content) {
-              if (cnt > 0) {
-                  alert('기존의 수정폼을 취소해주세요.');
-                  return false;
-              }
-              let modifyForm = document.createElement("form");
-              modifyForm.action = "/reply/update/"+id;
-              modifyForm.method = "post";
-              modifyForm.id = "modifyForm"+id;
-              modifyForm.style = "display: contents;";
-              modifyForm.setAttribute("data-remote", "true")
-
-              let modifyContent = document.createElement("input");
-              modifyContent.name = "content";
-              modifyContent.type = "text";
-              modifyContent.value = content;
-              modifyContent.style = "width: 80%;";
-
-              let modifySubmit = document.createElement("button");
-              modifySubmit.type = "submit";
-              modifySubmit.textContent = "제출";
-
-              let modifyCancel = document.createElement("button");
-              modifyCancel.type = "button";
-              modifyCancel.textContent = "취소";
-              modifyCancel.onclick = function() {
-                  document.getElementById('modifyForm'+id).remove();
-                  this.remove();
-                  cnt--;
-              };
-
-              modifyForm.appendChild(modifyContent);
-              modifyForm.appendChild(modifySubmit);
-
-              let test = document.getElementById('reply'+id).lastChild;
-              document.getElementById('reply'+id).insertBefore(modifyForm.cloneNode(true), test);
-              document.getElementById('reply'+id).appendChild(modifyCancel);
-              cnt++;
-          }
-      </script>
       <h3>댓글</h3>
-      <% @post.replies.each do |reply| %>
-        <div class="reply" id="reply<%= reply.id %>">
-          <p style="border-color: #e2e2e2; width: 12%;"><%= find_nickname(reply.member_id) %></p>
-          <p style="border-color: palevioletred; width: 65%;"><%= reply.content %></p>
-          <% if member_logged_in? %>
-            <% if reply.member_id == current_member.id %>
-              <button style="width: 8%" onclick="modify(<%= reply.id %>, '<%= reply.content %>');">수정</button>
-              <%= form_tag("/reply/remove/#{reply.id}", method: "post", remote: true,
-                           class: "replyDeleteButton",
-                           style: "padding: 0; width: 8%") do %>
-                <button style="width: 100%" type="submit">삭제</button>
-              <% end %>
-            <% else %>
-              <button style="width: 8%; visibility: hidden">바보</button>
-              <button style="width: 8%; visibility: hidden">바보</button>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
-      <% if member_logged_in? %>
-        <%= form_tag("/reply/create/#{@post.id}", method: "post", remote: true) do %>
-          <input class="replyInput" type="text" name="content" required placeholder="댓글 작성">
-          <button type="submit">제출</button>
-        <% end %>
-        <%= form_tag("/reply/read/#{@post.id}", method: "post", remote: true) do %>
-          <button type="submit">댓글 새로고침</button>
-        <% end %>
-      <% else %>
-        <form>
-          <input class="replyInput" type="text" readonly placeholder="댓글을 작성하시려면 로그인해주세요.">
-          <button disabled>제출</button>
-        </form>
-      <% end %>
+      <script>
+        function modify(id, content) {
+          if (document.getElementById("modifyForm"+id) !== null) {
+              // alert('기존의 수정폼을 취소해주세요.');
+              return false;
+          }
+          let modifyForm = document.createElement("form");
+          modifyForm.action = "/reply/update/"+id;
+          modifyForm.method = "post";
+          modifyForm.id = "modifyForm"+id;
+          modifyForm.style = "display: contents;";
+          modifyForm.setAttribute("data-remote", "true")
+
+          let modifyContent = document.createElement("input");
+          modifyContent.name = "content";
+          modifyContent.type = "text";
+          modifyContent.value = content;
+          modifyContent.style = "width: 80%;";
+
+          let modifySubmit = document.createElement("button");
+          modifySubmit.type = "submit";
+          modifySubmit.textContent = "제출";
+
+          let modifyCancel = document.createElement("button");
+          modifyCancel.type = "button";
+          modifyCancel.textContent = "취소";
+          modifyCancel.onclick = function() {
+              document.getElementById('modifyForm'+id).remove();
+              this.remove();
+          };
+
+          modifyForm.appendChild(modifyContent);
+          modifyForm.appendChild(modifySubmit);
+
+          let test = document.getElementById('reply'+id).lastChild;
+          document.getElementById('reply'+id).insertBefore(modifyForm.cloneNode(true), test);
+          document.getElementById('reply'+id).appendChild(modifyCancel);
+          }
+        $.ajax({
+            url: "/reply/read/<%= @post.id %>",
+            dataType: "script",
+            method: "post",
+            // ajax 요청을 두번하는 현상이 있어 async: false
+            async: false
+        });
+      </script>
     </div>
   </div>
 </div>

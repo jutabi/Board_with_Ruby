@@ -28,7 +28,7 @@ class PostController < ApplicationController
     post.content = params[:content]
     post.save
 
-    redirect_to '/post/view/' + params[:post_id]
+    redirect_to "/post/view/#{params[:post_id]}"
   end
 
   def remove

@@ -7,6 +7,7 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
 
@@ -42,7 +43,6 @@
         </div>
 
         <script>
-            console.log(location.pathname);
             if (location.pathname === '/') {
                 document.getElementById('nav-home').className = "active-nav-menu";
             } else if (location.pathname === '/post/write') {

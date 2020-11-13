@@ -1,7 +1,12 @@
+<%= form_tag("/reply/read/#{@post.id}", method: "post", remote: true,
+             style: "padding: 1vh 0 0 0") do %>
+  <button type="submit">댓글 새로고침</button>
+<% end %>
+
 <% @post.replies.each do |reply| %>
   <div class="reply" id="reply<%= reply.id %>">
-    <p style="border-color: #e2e2e2; width: 12%;"><%= find_nickname(reply.member_id) %></p>
-    <p style="border-color: palevioletred; width: 65%;"><%= reply.content %></p>
+    <p style="width: 12%;"><%= find_nickname(reply.member_id) %></p>
+    <p style="width: 65%;"><%= reply.content %></p>
     <% if member_logged_in? %>
       <% if reply.member_id == current_member.id %>
         <button style="width: 8%" onclick="modify(<%= reply.id %>, '<%= reply.content %>');">수정</button>
@@ -21,9 +26,6 @@
   <%= form_tag("/reply/create/#{@post.id}", method: "post", remote: true) do %>
     <input class="replyInput" type="text" name="content" required placeholder="댓글 작성">
     <button type="submit">제출</button>
-  <% end %>
-  <%= form_tag("/reply/read/#{@post.id}", method: "post", remote: true) do %>
-    <button type="submit">댓글 새로고침</button>
   <% end %>
 <% else %>
   <form>
