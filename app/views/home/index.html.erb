@@ -54,13 +54,27 @@
       <script>
         currentPage = location.pathname.substr(1);
         contentPerPage = 5;
+        pagePerPages = 5;
         posts_count = <%= @posts_count %>;
+
+        last_page = Math.floor(posts_count / contentPerPage);
+        paging_first_page = (Math.floor(currentPage / 5)) * 5;
+        paging_last_page = last_page > paging_first_page + 4 ? paging_first_page + 4 : last_page;
 
         function pageButtonC() {
             while (document.getElementsByClassName("pageButton").length > 0) {
                 document.getElementsByClassName("pageButton").item(0).remove();
             }
-            for (let i = 0, button; i < posts_count / contentPerPage; i++) {
+            if (paging_first_page > 0) {
+                let button = document.createElement("button");
+                button.className = "pageButton";
+                button.innerText = "<"
+                button.onclick = function () {
+                    location.href = '/' + (paging_first_page - 1).toString();
+                }
+                document.getElementById("infoBox").appendChild(button);
+            }
+            for (let i = paging_first_page, button; i <= paging_last_page; i++) {
                 button = document.createElement("button");
                 button.className = "pageButton";
                 button.innerText = i.toString();
@@ -68,7 +82,16 @@
                     button.style = "background-color: antiquewhite;";
                 }
                 button.onclick = function () {
-                    location.href = '/'+i;
+                    location.href = '/' + i;
+                }
+                document.getElementById("infoBox").appendChild(button);
+            }
+            if (paging_last_page < last_page) {
+                let button = document.createElement("button");
+                button.className = "pageButton";
+                button.innerText = ">"
+                button.onclick = function () {
+                    location.href = '/' + (paging_last_page + 1).toString();
                 }
                 document.getElementById("infoBox").appendChild(button);
             }
