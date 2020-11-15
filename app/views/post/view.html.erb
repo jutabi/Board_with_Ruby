@@ -19,10 +19,12 @@
       .replyInput {
           width: 90%;
       }
-      .reply {
+      .reply:first-of-type {
           margin: 1vh 0 0 0;
+      }
+      .reply {
           min-height: 5rem;
-          border-top: .15rem solid lightgrey;
+          border-top: .10rem solid lightgrey;
           display: flex;
           justify-content: space-around;
           align-content: space-around;
@@ -30,7 +32,7 @@
           /*border-bottom: 1px solid;*/
       }
       .reply:last-of-type {
-          border-bottom: .15rem solid lightgrey;
+          border-bottom: .10rem solid lightgrey;
       }
       .reply p, .reply button, .replyDeleteButton {
           float: left;
@@ -106,7 +108,8 @@
           modifyForm.appendChild(modifySubmit);
 
           let test = document.getElementById('reply'+id).lastChild;
-          document.getElementById('reply'+id).insertBefore(modifyForm.cloneNode(true), test);
+          // document.getElementById('reply'+id).insertBefore(modifyForm.cloneNode(true), test);
+          document.getElementById('reply'+id).appendChild(modifyForm);
           document.getElementById('reply'+id).appendChild(modifyCancel);
           }
         $.ajax({
