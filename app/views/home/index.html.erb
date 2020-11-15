@@ -14,6 +14,8 @@
         padding-bottom: 1vh;
         margin: 0 1vh 1vh 0.5vh;
         border-bottom: 1px solid white;
+        display: flex;
+        justify-content: space-between
     }
     .postTitle:hover {
         border-bottom: 1px solid #666666;
@@ -31,7 +33,7 @@
 </head>
 <body>
   <div class="container">
-    <div class="infoBox">
+    <div class="infoBox" id="infoBox">
 <!--      <h1 style="display: inline">Hi </h1>-->
       <%# if member_logged_in? %>
 <!--        <h1 style="display: inline"><%#= current_member.nickname %></h1><br>-->
@@ -42,13 +44,37 @@
       <h1>Posts</h1>
       <hr style="margin: 1vh 0">
       <% @posts.each do |post| %>
-        <div class="postTitle" style="display: flex; justify-content: space-between">
+        <div class="postTitle">
           <a href="/post/view/<%= post.id %>">
             <p><%= post.title %></p></a>
           <p style="font-size: 0.8rem; padding-right: 0.2vh">
-            작성자: <%= find_nickname(post.member_id) %></p>
+            작성자: <%= find_nickname(post.member_id) %> / <%= post.created_at %></p>
         </div>
       <% end %>
+      <script>
+        currentPage = location.pathname.substr(1);
+        contentPerPage = 5;
+        posts_count = <%= @posts_count %>;
+
+        function pageButtonC() {
+            while (document.getElementsByClassName("pageButton").length > 0) {
+                document.getElementsByClassName("pageButton").item(0).remove();
+            }
+            for (let i = 0, button; i < posts_count / contentPerPage; i++) {
+                button = document.createElement("button");
+                button.className = "pageButton";
+                button.innerText = i.toString();
+                if (Number(currentPage) === i) {
+                    button.style = "background-color: antiquewhite;";
+                }
+                button.onclick = function () {
+                    location.href = '/'+i;
+                }
+                document.getElementById("infoBox").appendChild(button);
+            }
+        }
+        pageButtonC();
+      </script>
     </div>
   </div>
 </body>
