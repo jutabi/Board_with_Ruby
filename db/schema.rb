@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2020_11_03_073003) do
 
   create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "member_id"
+    t.string "member_nickname"
     t.string "title"
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
@@ -32,6 +33,7 @@ ActiveRecord::Schema.define(version: 2020_11_03_073003) do
   create_table "replies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "member_id"
     t.integer "post_id"
+    t.string "member_nickname"
     t.string "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

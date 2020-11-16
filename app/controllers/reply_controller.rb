@@ -1,6 +1,8 @@
 class ReplyController < ApplicationController
   def create
-    Reply.create(member_id: Member.find_by(username: session[:username]).id,
+    member = Member.find_by(username: session[:username])
+    Reply.create(member_id: member.id,
+                 member_nickname: member.nickname,
                  post_id: params[:post_id],
                  content: params[:content])
 

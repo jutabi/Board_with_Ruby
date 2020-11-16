@@ -4,7 +4,9 @@ class PostController < ApplicationController
   def write; end
 
   def create
-    Post.create(member_id: Member.find_by(username: session[:username]).id,
+    member = Member.find_by(username: session[:username])
+    Post.create(member_id: member.id,
+                member_nickname: member.nickname,
                 title: params[:title],
                 content: params[:content])
 

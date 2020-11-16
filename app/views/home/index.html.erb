@@ -34,13 +34,6 @@
 <body>
   <div class="container">
     <div class="infoBox" id="infoBox">
-<!--      <h1 style="display: inline">Hi </h1>-->
-      <%# if member_logged_in? %>
-<!--        <h1 style="display: inline"><%#= current_member.nickname %></h1><br>-->
-      <%# end %>
-<!--      <br>-->
-      <%#= link_to '게시물 작성', '/post/write', method: 'get' %>
-<!--      <hr style="margin: 1vh 0">-->
       <h1>Posts</h1>
       <hr style="margin: 1vh 0">
       <% @posts.each do |post| %>
@@ -48,18 +41,19 @@
           <a href="/post/view/<%= post.id %>">
             <p><%= post.title %></p></a>
           <p style="font-size: 0.8rem; padding-right: 0.2vh">
-            작성자: <%= find_nickname(post.member_id) %> / <%= post.created_at %></p>
+            작성자: <%= post.member_nickname %> / <%= post.created_at %></p>
         </div>
       <% end %>
       <script>
-        currentPage = location.pathname.substr(1);
+        currentPage = Number(location.pathname.substr(1));
         contentPerPage = 5;
-        pagePerPages = 5;
+        pagePerPages = 4;
         posts_count = <%= @posts_count %>;
 
         last_page = Math.floor(posts_count / contentPerPage);
-        paging_first_page = (Math.floor(currentPage / 5)) * 5;
-        paging_last_page = last_page > paging_first_page + 4 ? paging_first_page + 4 : last_page;
+        paging_first_page = (Math.floor(currentPage / pagePerPages)) * pagePerPages;
+        paging_last_page = last_page > paging_first_page + pagePerPages - 1 ?
+            paging_first_page + pagePerPages - 1 : last_page;
 
         function pageButtonC() {
             while (document.getElementsByClassName("pageButton").length > 0) {
@@ -70,7 +64,7 @@
                 button.className = "pageButton";
                 button.innerText = "<"
                 button.onclick = function () {
-                    location.href = '/' + (paging_first_page - 1).toString();
+                    location.href = '/' + (paging_first_page - 1).toString() + '?contentPerPage=' + contentPerPage;
                 }
                 document.getElementById("infoBox").appendChild(button);
             }
@@ -78,11 +72,12 @@
                 button = document.createElement("button");
                 button.className = "pageButton";
                 button.innerText = i.toString();
-                if (Number(currentPage) === i) {
+                if (currentPage === i) {
                     button.style = "background-color: antiquewhite;";
+                    button.disabled = true;
                 }
                 button.onclick = function () {
-                    location.href = '/' + i;
+                    location.href = '/' + i + '?contentPerPage=' + contentPerPage;
                 }
                 document.getElementById("infoBox").appendChild(button);
             }
@@ -91,7 +86,7 @@
                 button.className = "pageButton";
                 button.innerText = ">"
                 button.onclick = function () {
-                    location.href = '/' + (paging_last_page + 1).toString();
+                    location.href = '/' + (paging_last_page + 1).toString() + '?contentPerPage=' + contentPerPage;
                 }
                 document.getElementById("infoBox").appendChild(button);
             }

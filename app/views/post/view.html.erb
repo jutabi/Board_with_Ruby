@@ -59,7 +59,7 @@
   <div class="infoBox">
     <div class="post">
       <h3><%= @post.title %></h3>
-      <p style="text-align: right">작성자: <%= find_nickname(@post.member_id) %></p>
+      <p style="text-align: right">작성자: <%= @post.member_nickname %></p>
       <div style="text-align: right; padding: 0.5vh 0">
         <% if member_logged_in? %>
           <% if current_member.id == @post.member_id %>
