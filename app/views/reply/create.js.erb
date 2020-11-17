@@ -1,8 +1,11 @@
 while (document.getElementsByClassName("reply").length > 0) {
     document.getElementsByClassName("reply").item(0).remove();
 }
-while (document.querySelectorAll("form").length > 0) {
-    document.querySelector("form").remove();
+//while (document.querySelectorAll("form").length > 0) {
+//    document.querySelector("form").remove();
+//}
+while (document.getElementsByClassName("replyAction").length > 0) {
+    document.getElementsByClassName("replyAction").item(0).remove();
 }
 
 document.getElementById("replies").innerHTML +=

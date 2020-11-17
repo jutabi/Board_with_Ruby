@@ -34,7 +34,7 @@
       .reply:last-of-type {
           border-bottom: .10rem solid lightgrey;
       }
-      .reply p, .reply button, .replyDeleteButton {
+      .reply p, .reply button {
           float: left;
           display: inline;
           /*margin-left: 1vw;*/
@@ -66,7 +66,41 @@
             <button onclick="location.href='/post/modify/<%= @post.id %>'">수정하기</button>
             <button onclick="location.href='/post/remove/<%= @post.id %>'">삭제하기</button>
           <% end %>
+          <br>
+
+          <%= form_tag("/post/like/#{@post.id}", method: "post", remote: true,
+                       class: "replyDeleteButton",
+                       style: "padding: 0;") do %>
+            <% if current_member.is_like?(@post) == true %>
+              <button type="submit">좋아요 취소</button>
+            <% else %>
+              <button type="submit">좋아요</button>
+            <% end %>
+          <% end %>
+
+          <%= form_tag("/post/hate/#{@post.id}", method: "post", remote: true,
+                       class: "replyDeleteButton",
+                       style: "padding: 0;") do %>
+            <% if current_member.is_like?(@post) == false %>
+              <button type="submit">싫어요 취소</button>
+            <% else %>
+              <button type="submit">싫어요</button>
+            <% end %>
+          <% end %>
+
+          <%# if current_member.is_like?(@post) == true %>
+            <%#= link_to("좋아요 취소 / ", "/post/like/#{@post.id}", method: "post", remote: true) %>
+            <%#= link_to("싫어요", "/post/hate/#{@post.id}", method: "post", remote: true) %>
+          <%# elsif current_member.is_like?(@post) == false %>
+            <%#= link_to("좋아요 / ", "/post/like/#{@post.id}", method: "post", remote: true) %>
+            <%#= link_to("싫어요 취소", "/post/hate/#{@post.id}", method: "post", remote: true) %>
+          <%# else %>
+            <%#= link_to("좋아요 / ", "/post/like/#{@post.id}", method: "post") %>
+            <%#= link_to("싫어요", "/post/hate/#{@post.id}", method: "post") %>
+          <%# end %>
         <% end %>
+        <p>좋아요: <%= @post.like_count %></p>
+        <p>싫어요: <%= @post.hate_count %></p>
       </div>
       <textarea class="content" readonly><%= @post.content %></textarea><br>
     </div>
@@ -75,43 +109,44 @@
       <h3>댓글</h3>
       <script>
         function modify(id, content) {
-          if (document.getElementById("modifyForm"+id) !== null) {
-              // alert('기존의 수정폼을 취소해주세요.');
-              return false;
-          }
-          let modifyForm = document.createElement("form");
-          modifyForm.action = "/reply/update/"+id;
-          modifyForm.method = "post";
-          modifyForm.id = "modifyForm"+id;
-          modifyForm.style = "display: contents;";
-          modifyForm.setAttribute("data-remote", "true")
+            if (document.getElementById("modifyForm"+id) !== null) {
+                // alert('기존의 수정폼을 취소해주세요.');
+                return false;
+            }
+            let modifyForm = document.createElement("form");
+            modifyForm.action = "/reply/update/"+id;
+            modifyForm.method = "post";
+            modifyForm.id = "modifyForm"+id;
+            modifyForm.style = "display: contents;";
+            modifyForm.className = "replyAction"
+            modifyForm.setAttribute("data-remote", "true")
 
-          let modifyContent = document.createElement("input");
-          modifyContent.name = "content";
-          modifyContent.type = "text";
-          modifyContent.value = content;
-          modifyContent.style = "width: 80%;";
+            let modifyContent = document.createElement("input");
+            modifyContent.name = "content";
+            modifyContent.type = "text";
+            modifyContent.value = content;
+            modifyContent.style = "width: 80%;";
 
-          let modifySubmit = document.createElement("button");
-          modifySubmit.type = "submit";
-          modifySubmit.textContent = "제출";
+            let modifySubmit = document.createElement("button");
+            modifySubmit.type = "submit";
+            modifySubmit.textContent = "제출";
 
-          let modifyCancel = document.createElement("button");
-          modifyCancel.type = "button";
-          modifyCancel.textContent = "취소";
-          modifyCancel.onclick = function() {
-              document.getElementById('modifyForm'+id).remove();
-              this.remove();
-          };
+            let modifyCancel = document.createElement("button");
+            modifyCancel.type = "button";
+            modifyCancel.textContent = "취소";
+            modifyCancel.onclick = function() {
+                document.getElementById('modifyForm'+id).remove();
+                this.remove();
+            };
 
-          modifyForm.appendChild(modifyContent);
-          modifyForm.appendChild(modifySubmit);
+            modifyForm.appendChild(modifyContent);
+            modifyForm.appendChild(modifySubmit);
 
-          let test = document.getElementById('reply'+id).lastChild;
-          // document.getElementById('reply'+id).insertBefore(modifyForm.cloneNode(true), test);
-          document.getElementById('reply'+id).appendChild(modifyForm);
-          document.getElementById('reply'+id).appendChild(modifyCancel);
-          }
+            let test = document.getElementById('reply'+id).lastChild;
+            // document.getElementById('reply'+id).insertBefore(modifyForm.cloneNode(true), test);
+            document.getElementById('reply'+id).appendChild(modifyForm);
+            document.getElementById('reply'+id).appendChild(modifyCancel);
+            }
         $.ajax({
             url: "/reply/read/<%= @post.id %>",
             dataType: "script",

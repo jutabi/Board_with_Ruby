@@ -7,6 +7,8 @@ class PostController < ApplicationController
     member = Member.find_by(username: session[:username])
     Post.create(member_id: member.id,
                 member_nickname: member.nickname,
+                like_count: 0,
+                hate_count: 0,
                 title: params[:title],
                 content: params[:content])
 

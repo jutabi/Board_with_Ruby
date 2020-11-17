@@ -30,6 +30,11 @@ Rails.application.routes.draw do
   get 'post/remove/:post_id' => 'post#remove'
 
 
+  post '/post/like/:post_id' => 'like#like_toggle'
+
+  post '/post/hate/:post_id' => 'like#hate_toggle'
+
+
   post '/reply/create/:post_id' => 'reply#create', defaults: { format: 'js' }
 
   post '/reply/read/:post_id' => 'reply#read', defaults: { format: 'js' }
