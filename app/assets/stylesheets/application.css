@@ -102,6 +102,10 @@ nav ul li a {
     display: flex;
     justify-content: right;
 }
+.flex-center {
+    display: flex;
+    justify-content: center;
+}
 input, button, textarea {
     width: auto;
     padding: .5em .75em;

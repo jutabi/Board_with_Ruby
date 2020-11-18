@@ -60,32 +60,10 @@
     <div class="post">
       <h3><%= @post.title %></h3>
       <div class="flex-space_between">
-        <div class="flex-left">
-          <p>좋아요: <%= @post.like_count %></p>
-          <p>싫어요: <%= @post.hate_count %></p>
-        </div>
-        <div class="flex-right">
+        <div>
           <p>작성자: <%= @post.member_nickname %></p>
         </div>
-      </div>
-      <div class="flex-space_between">
-        <div class="flex-left">
-          <%= form_tag("/post/like/#{@post.id}", method: "post", remote: true, style: "padding: 0;") do %>
-            <% if current_member.is_like?(@post) == true %>
-              <button type="submit">좋아요 취소</button>
-            <% else %>
-              <button type="submit">좋아요</button>
-            <% end %>
-          <% end %>
-          <%= form_tag("/post/hate/#{@post.id}", method: "post", remote: true, style: "padding: 0;") do %>
-            <% if current_member.is_like?(@post) == false %>
-              <button type="submit">싫어요 취소</button>
-            <% else %>
-              <button type="submit">싫어요</button>
-            <% end %>
-          <% end %>
-        </div>
-        <div class="flex-right">
+        <div>
           <% if member_logged_in? %>
             <% if current_member.id == @post.member_id %>
               <button onclick="location.href='/post/modify/<%= @post.id %>'">수정하기</button>
@@ -95,6 +73,9 @@
         </div>
       </div>
       <textarea class="content" readonly><%= @post.content %></textarea><br>
+    </div>
+    <div id="like_or_hate">
+      <%= render partial: 'like/like_or_hate' %>
     </div>
     <hr style="margin: 1vh 0">
     <div class="replies" id="replies">

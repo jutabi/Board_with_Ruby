@@ -32,7 +32,8 @@ class LikeController < ApplicationController
       post.save
     end
 
-    redirect_to "/post/view/#{params[:post_id]}"
+    @post = post
+    # redirect_to "/post/view/#{params[:post_id]}"
   end
 
   def hate_toggle
@@ -68,6 +69,7 @@ class LikeController < ApplicationController
       post.save
     end
 
-    redirect_to "/post/view/#{params[:post_id]}"
+    @post = post
+    # redirect_to "/post/view/#{params[:post_id]}"
   end
 end

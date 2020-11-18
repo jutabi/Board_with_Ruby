@@ -1,0 +1,7 @@
+while (document.getElementById("like_or_hate").hasChildNodes()) {
+    document.getElementById("like_or_hate").firstChild.remove();
+}
+
+//$('#like_or_hate').empty();
+
+document.getElementById("like_or_hate").innerHTML += "<%= escape_javascript render 'like/like_or_hate' %>"
