@@ -90,6 +90,18 @@ nav ul li a {
     padding: 5vh;
     text-align: center;
 }
+.flex-space_between {
+    display: flex;
+    justify-content: space-between;
+}
+.flex-left {
+    display: flex;
+    justify-content: left;
+}
+.flex-right {
+    display: flex;
+    justify-content: right;
+}
 input, button, textarea {
     width: auto;
     padding: .5em .75em;

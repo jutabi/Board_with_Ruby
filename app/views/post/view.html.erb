@@ -59,48 +59,40 @@
   <div class="infoBox">
     <div class="post">
       <h3><%= @post.title %></h3>
-      <p style="text-align: right">작성자: <%= @post.member_nickname %></p>
-      <div style="text-align: right; padding: 0.5vh 0">
-        <% if member_logged_in? %>
-          <% if current_member.id == @post.member_id %>
-            <button onclick="location.href='/post/modify/<%= @post.id %>'">수정하기</button>
-            <button onclick="location.href='/post/remove/<%= @post.id %>'">삭제하기</button>
-          <% end %>
-          <br>
-
-          <%= form_tag("/post/like/#{@post.id}", method: "post", remote: true,
-                       class: "replyDeleteButton",
-                       style: "padding: 0;") do %>
+      <div class="flex-space_between">
+        <div class="flex-left">
+          <p>좋아요: <%= @post.like_count %></p>
+          <p>싫어요: <%= @post.hate_count %></p>
+        </div>
+        <div class="flex-right">
+          <p>작성자: <%= @post.member_nickname %></p>
+        </div>
+      </div>
+      <div class="flex-space_between">
+        <div class="flex-left">
+          <%= form_tag("/post/like/#{@post.id}", method: "post", remote: true, style: "padding: 0;") do %>
             <% if current_member.is_like?(@post) == true %>
               <button type="submit">좋아요 취소</button>
             <% else %>
               <button type="submit">좋아요</button>
             <% end %>
           <% end %>
-
-          <%= form_tag("/post/hate/#{@post.id}", method: "post", remote: true,
-                       class: "replyDeleteButton",
-                       style: "padding: 0;") do %>
+          <%= form_tag("/post/hate/#{@post.id}", method: "post", remote: true, style: "padding: 0;") do %>
             <% if current_member.is_like?(@post) == false %>
               <button type="submit">싫어요 취소</button>
             <% else %>
               <button type="submit">싫어요</button>
             <% end %>
           <% end %>
-
-          <%# if current_member.is_like?(@post) == true %>
-            <%#= link_to("좋아요 취소 / ", "/post/like/#{@post.id}", method: "post", remote: true) %>
-            <%#= link_to("싫어요", "/post/hate/#{@post.id}", method: "post", remote: true) %>
-          <%# elsif current_member.is_like?(@post) == false %>
-            <%#= link_to("좋아요 / ", "/post/like/#{@post.id}", method: "post", remote: true) %>
-            <%#= link_to("싫어요 취소", "/post/hate/#{@post.id}", method: "post", remote: true) %>
-          <%# else %>
-            <%#= link_to("좋아요 / ", "/post/like/#{@post.id}", method: "post") %>
-            <%#= link_to("싫어요", "/post/hate/#{@post.id}", method: "post") %>
-          <%# end %>
-        <% end %>
-        <p>좋아요: <%= @post.like_count %></p>
-        <p>싫어요: <%= @post.hate_count %></p>
+        </div>
+        <div class="flex-right">
+          <% if member_logged_in? %>
+            <% if current_member.id == @post.member_id %>
+              <button onclick="location.href='/post/modify/<%= @post.id %>'">수정하기</button>
+              <button onclick="location.href='/post/remove/<%= @post.id %>'">삭제하기</button>
+            <% end %>
+          <% end %>
+        </div>
       </div>
       <textarea class="content" readonly><%= @post.content %></textarea><br>
     </div>
