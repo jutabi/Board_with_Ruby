@@ -128,7 +128,11 @@ button:hover {
     border: 2px solid coral;
     color: black;
 }
-
+.enabled_button {
+    border: 2px solid darkcyan;
+    background-color: lightblue;
+    color: black;
+}
 /*::-webkit-scrollbar {*/
 /*    width: 10px;  !* 세로축 스크롤바 길이 *!*/
 /*    height: 20px;  !* 가로축 스크롤바 길이 *!*/

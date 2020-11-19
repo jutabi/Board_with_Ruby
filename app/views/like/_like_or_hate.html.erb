@@ -1,20 +1,21 @@
 <div class="flex-center">
-  <p>좋아요: <%= @post.like_count %></p>
-  <p>싫어요: <%= @post.hate_count %></p>
+<!--  <p>좋아요: <%#= @post.like_count %></p>-->
+<!--  <p>싫어요: <%#= @post.hate_count %></p>-->
+  <p>추천수: <%= @post.like_count - @post.hate_count %></p>
 </div>
 <div class="flex-center">
   <%= form_tag("/post/like/#{@post.id}", method: "post", remote: true,
-               style: "padding: 0;") do %>
+               style: "padding: 0; margin-right: 0.5vw;") do %>
     <% if current_member.is_like?(@post) == true %>
-      <button type="submit">좋아요 취소</button>
+      <button class="enabled_button" type="submit">좋아요</button>
     <% else %>
       <button type="submit">좋아요</button>
     <% end %>
   <% end %>
   <%= form_tag("/post/hate/#{@post.id}", method: "post", remote: true,
-               style: "padding: 0;") do %>
+               style: "padding: 0; margin-left: 0.5vw;") do %>
     <% if current_member.is_like?(@post) == false %>
-      <button type="submit">싫어요 취소</button>
+      <button class="enabled_button" type="submit">싫어요</button>
     <% else %>
       <button type="submit">싫어요</button>
     <% end %>
