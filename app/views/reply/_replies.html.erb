@@ -10,7 +10,8 @@
     <p style="width: 65%;"><%= reply.content %></p>
     <% if member_logged_in? %>
       <% if reply.member_id == current_member.id %>
-        <button style="width: 8%" onclick="modify(<%= reply.id %>, '<%= reply.content %>');">수정</button>
+        <button style="width: 8%" onclick="modify(<%= reply.id %>,
+            document.getElementById('reply'+<%= reply.id %>).childNodes[3].innerText)">수정</button>
         <%= form_tag("/reply/remove/#{reply.id}", method: "post", remote: true,
                      class: "replyAction",
                      style: "padding: 0; width: 8%") do %>
@@ -26,7 +27,8 @@
 <% if member_logged_in? %>
   <%= form_tag("/reply/create/#{@post.id}", method: "post", remote: true,
                class: "replyAction") do %>
-    <input class="replyInput" type="text" name="content" required placeholder="댓글 작성">
+<!--    <input class="replyInput" type="text" name="content" required placeholder="댓글 작성" maxlength="255">-->
+    <textarea class="replyInput" type="text" name="content" required placeholder="댓글 작성" maxlength="255"></textarea>
     <button type="submit">제출</button>
   <% end %>
 <% else %>

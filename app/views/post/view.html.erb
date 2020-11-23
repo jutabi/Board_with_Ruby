@@ -34,7 +34,7 @@
       .reply:last-of-type {
           border-bottom: .10rem solid lightgrey;
       }
-      .reply p, .reply button {
+      .reply p, .reply button, .reply form {
           float: left;
           display: inline;
           /*margin-left: 1vw;*/
@@ -43,6 +43,8 @@
       }
       .reply p {
           padding: .5em 0;
+          word-break: break-all;
+          white-space: pre-wrap;
           /*border-bottom: 1px solid;*/
           /*border-radius: .25em;*/
       }
@@ -94,10 +96,16 @@
             modifyForm.className = "replyAction"
             modifyForm.setAttribute("data-remote", "true")
 
-            let modifyContent = document.createElement("input");
+            // let modifyContent = document.createElement("input");
+            // modifyContent.name = "content";
+            // modifyContent.type = "text";
+            // modifyContent.value = content;
+            // modifyContent.style = "width: 80%;";
+
+            let modifyContent = document.createElement("textarea");
             modifyContent.name = "content";
-            modifyContent.type = "text";
             modifyContent.value = content;
+            modifyContent.maxLength = 255;
             modifyContent.style = "width: 80%;";
 
             let modifySubmit = document.createElement("button");
