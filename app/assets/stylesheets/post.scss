@@ -1,3 +1,21 @@
 // Place all the styles related to the post controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.infoBox {
+  min-width: 50vw;
+}
+.title, .content {
+  width: 100%;
+  text-align: left;
+  border-color: #666666;
+}
+.content {
+  min-height: 50vh;
+}
+
+@media (max-width: 958px) {
+  .infoBox {
+    width: 80vw;
+  }
+}
