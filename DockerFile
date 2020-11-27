@@ -84,7 +84,7 @@ RUN npm install -g yarn
 ADD ./ /Project/Board_with_Ruby
 WORKDIR /Project/Board_with_Ruby
 
-RUN bundle update
+#RUN bundle update
 RUN bundle install
 RUN yarn install --check-files
 
