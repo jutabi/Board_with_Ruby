@@ -25,7 +25,7 @@ jobs:
 
             docker network create board
 
-            docker build -t board-mysql /db/
+            docker build -t board-mysql ./db/
             docker run --name board-mysql -d -it --network board board-mysql --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
             docker build -t board-rails .

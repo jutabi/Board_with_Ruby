@@ -70,15 +70,15 @@ sqlite3 \
 libxml2-dev \
 libxslt1-dev \
 libcurl4-openssl-dev \
-#libmysqlclient-dev \
-#python-software-properties \
-tzdata
+libmariadb-dev-compat \
+libmariadb-dev \
+software-properties-common \
+tzdata \
+npm
 
 RUN gem install bundler
 RUN gem install rails
 
-RUN apt-get install -y npm
-#RUN npm cache clean -f
 # nodejs version management tool
 RUN npm install -g n
 # install nodejs stable version
