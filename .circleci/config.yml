@@ -9,15 +9,32 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
-      - run:
-          name: Which bundler?
-          command: bundle -v
+#      - run:
+#          name: Which bundler?
+#          command: bundle -
       - add_ssh_keys:
           fingerprints:
             - "2f:97:29:23:08:c3:84:22:5f:eb:83:cd:c8:5a:0c:ff"
       - run:
-          name: ssh echo
-          command: ssh -o StrictHostKeyChecking=no root@106.10.36.29 -p 1024 "echo hello"
+          name: ssh connect
+          command: |
+            ssh -o StrictHostKeyChecking=no root@106.10.36.29 -p 1024 '
+            echo start
+            cd /Rails_Project/Board_with_Ruby/
+            git pull
+
+            docker network create board
+
+            docker build -t board-mysql /db/
+            docker run --name board-mysql -d -it --network board board-mysql --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+            docker build -t board-rails .
+            docker run --name board-rails -d -it -p 80:80 --network board board-rails
+
+            docker exec board-rails rake db:create
+            docker exec board-rails rake db:migrate
+
+            echo end'
 #      - ruby/bundle-install
 
 workflows:
