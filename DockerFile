@@ -52,8 +52,10 @@
 #
 #CMD rails server -b localhost -p 80 -e development
 
-FROM ruby:2.6.6
+# install ruby slim version
+FROM ruby:2.6.6-slim
 
+# installing required tools
 RUN apt-get update
 RUN apt-get install -y \
 git-core \
@@ -77,15 +79,25 @@ RUN gem install rails
 
 RUN apt-get install -y npm
 #RUN npm cache clean -f
+# nodejs version management tool
 RUN npm install -g n
+# install nodejs stable version
 RUN n stable
+# install yarn for use 'yarn install --check-files'
 RUN npm install -g yarn
 
+# copy project folder to docker container
 ADD ./ /Project/Board_with_Ruby
+# change work directory in docker container
 WORKDIR /Project/Board_with_Ruby
 
+# install ruby bundle in Gemfile
 RUN bundle install
+# node_modules
 RUN yarn install --check-files
+
+RUN rake db:create
+RUN rake db:migrate
 
 EXPOSE 80
 CMD rails server -b 0.0.0.0 -p 80 -e development
