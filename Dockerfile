@@ -96,8 +96,8 @@ RUN bundle install
 # node_modules
 RUN yarn install --check-files
 
-RUN rake db:create
-RUN rake db:migrate
+#RUN rake db:create
+#RUN rake db:migrate
 
 EXPOSE 80
 CMD rails server -b 0.0.0.0 -p 80 -e development

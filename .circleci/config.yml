@@ -23,13 +23,7 @@ jobs:
             cd /Rails_Project/Board_with_Ruby/
             git pull
 
-            docker network create board
-
-            docker build -t board-mysql ./db/
-            docker run --name board-mysql -d -it --network board board-mysql --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-
-            docker build -t board-rails .
-            docker run --name board-rails -d -it -p 80:80 --network board board-rails
+            docker-compose up -d --build
 
             docker exec board-rails rake db:create
             docker exec board-rails rake db:migrate

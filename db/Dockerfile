@@ -1,4 +1,4 @@
-FROM mysql/mysql-server:8.0
+FROM mysql/mysql-server:5.7
 
 ENV MYSQL_USER jutabi
 ENV MYSQL_PASSWORD test1234
