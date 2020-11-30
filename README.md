@@ -11,14 +11,16 @@
 - (O) AJAX
 - (O) 게시물 속성에 멤버 닉네임 추가
 - (O) 게시물 추천, 비추천
+- (O) MySQL
+- (O) NCP Server 배포
 - (O) Docker
 - (O) AWS ECR
-- (O) NCP Server 배포
-- (O) MySQL
+- (O) Circle CI
 <hr>
-
 - (X) MongoDB
-- (X) Circle CI
+- (X) AWS EKS (Elastic Kubernetes Service or ECS (Elastic Container Service)
+- (X) AWS Beanstalk
+- (X) AWS Elasticsearch Service
 
 </div>
 </details>

@@ -3,7 +3,7 @@ FROM mysql/mysql-server:5.7
 ENV MYSQL_USER jutabi
 ENV MYSQL_PASSWORD test1234
 ENV MYSQL_ROOT_PASSWORD password
-#ENV MYSQL_DATABASE visitlog
+ENV MYSQL_DATABASE Board_development
 
 
 # docker run -d -p 3306:3306

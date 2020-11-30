@@ -9,6 +9,7 @@ services:
       MYSQL_USER: "jutabi"
       MYSQL_PASSWORD: "test1234"
       MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_DATABASE: "Board_development"
     command:
       --character-set-server=utf8mb4
       --collation-server=utf8mb4_unicode_ci
