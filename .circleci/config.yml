@@ -22,12 +22,9 @@ jobs:
             echo start
             cd /Rails_Project/Board_with_Ruby/
             git pull
-
             docker-compose up -d --build --always-recreate-deps
-
 #            docker exec board-rails rake db:create
 #            docker exec board-rails rake db:migrate
-
             echo end'
 #      - ruby/bundle-install
 
