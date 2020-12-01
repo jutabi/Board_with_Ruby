@@ -86,15 +86,20 @@ RUN n stable
 # install yarn for use 'yarn install --check-files'
 RUN npm install -g yarn
 
-# copy project folder to docker container
-ADD ./ /Project/Board_with_Ruby
 # change work directory in docker container
 WORKDIR /Project/Board_with_Ruby
 
+ADD Gemfile /Project/Board_with_Ruby
+ADD Gemfile.lock /Project/Board_with_Ruby
 # install ruby bundle in Gemfile
 RUN bundle install
 # node_modules
-RUN yarn install --check-files
+ADD package.json /Project/Board_with_Ruby
+ADD yarn.lock /Project/Board_with_Ruby
+RUN yarn install --verbose
+
+# copy project folder to docker container
+ADD ./ /Project/Board_with_Ruby
 
 #RUN rake db:create
 #RUN rake db:migrate

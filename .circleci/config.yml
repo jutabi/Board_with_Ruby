@@ -22,7 +22,9 @@ jobs:
             echo start
             cd /Rails_Project/Board_with_Ruby/
             git pull
+            git checkout develop
             docker-compose up -d --build --always-recreate-deps
+            docker-compose start
             echo end'
 #      - ruby/bundle-install
 
