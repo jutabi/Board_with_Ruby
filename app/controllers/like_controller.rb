@@ -9,14 +9,16 @@ class LikeController < ApplicationController
       post.like_count += 1
       post.save
     elsif current_member.is_like?(post) == true # 좋아요 취소
-      ps = PostLike.find_by(member_id: current_member.id)
+      ps = PostLike.find_by(member_id: current_member.id,
+                            post_id: params[:post_id])
       ps.like_or_hate = nil
       ps.save
 
       post.like_count -= 1
       post.save
     elsif current_member.is_like?(post) == false # 싫어요 취소, 좋아요 추가
-      ps = PostLike.find_by(member_id: current_member.id)
+      ps = PostLike.find_by(member_id: current_member.id,
+                            post_id: params[:post_id])
       ps.like_or_hate = true
       ps.save
 
@@ -24,7 +26,8 @@ class LikeController < ApplicationController
       post.like_count += 1
       post.save
     elsif current_member.is_like?(post) == 'no_data' # 테이블 데이터는 있지만 취소했었던 경우
-      ps = PostLike.find_by(member_id: current_member.id)
+      ps = PostLike.find_by(member_id: current_member.id,
+                            post_id: params[:post_id])
       ps.like_or_hate = true
       ps.save
 
@@ -46,14 +49,16 @@ class LikeController < ApplicationController
       post.hate_count += 1
       post.save
     elsif current_member.is_like?(post) == false # 싫어요 취소
-      ps = PostLike.find_by(member_id: current_member.id)
+      ps = PostLike.find_by(member_id: current_member.id,
+                            post_id: params[:post_id])
       ps.like_or_hate = nil
       ps.save
 
       post.hate_count -= 1
       post.save
     elsif current_member.is_like?(post) == true # 좋아요 취소, 싫어요 추가
-      ps = PostLike.find_by(member_id: current_member.id)
+      ps = PostLike.find_by(member_id: current_member.id,
+                            post_id: params[:post_id])
       ps.like_or_hate = false
       ps.save
 
@@ -61,7 +66,8 @@ class LikeController < ApplicationController
       post.hate_count += 1
       post.save
     elsif current_member.is_like?(post) == 'no_data' # 기록은 있지만 취소했었던 경우
-      ps = PostLike.find_by(member_id: current_member.id)
+      ps = PostLike.find_by(member_id: current_member.id,
+                            post_id: params[:post_id])
       ps.like_or_hate = false
       ps.save
 
