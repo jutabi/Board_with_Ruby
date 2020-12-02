@@ -14,6 +14,9 @@ services:
       --character-set-server=utf8mb4
       --collation-server=utf8mb4_unicode_ci
 #      --default-authentication-plugin=mysql_native_password
+    volumes:
+    - /Rails_Project/db-data:/var/lib/mysql
+#    - /etc/localtime:/etc/localtime:ro
 
   rails:
     container_name: board-rails
