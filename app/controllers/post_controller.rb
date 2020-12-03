@@ -38,6 +38,8 @@ class PostController < ApplicationController
   def remove
     post = Post.find(params[:post_id])
     if post.member_id == Member.find_by(username: session[:username]).id
+      post.post_likes.each(&:delete)
+      post.replies.each(&:delete)
       post.delete
       redirect_to '/'
     else

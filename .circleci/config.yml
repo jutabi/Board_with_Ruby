@@ -28,11 +28,11 @@ jobs:
             echo end'
 #      - ruby/bundle-install
 
-#workflows:
-#  version: 2
-#  build:
-#    jobs:
-#      - build:
-#          filters:
-#            branches:
-#              only: master
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
