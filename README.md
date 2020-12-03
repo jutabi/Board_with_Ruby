@@ -16,7 +16,7 @@
 - (O) Docker
 - (O) AWS ECR
 - (O) Circle CI
-<hr>
+
 - (X) MongoDB
 - (X) AWS EKS (Elastic Kubernetes Service or ECS (Elastic Container Service)
 - (X) AWS Beanstalk
