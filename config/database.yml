@@ -15,7 +15,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: jutabi
   password: test1234
-  host: localhost
+  host: board-mysql
 
 development:
   <<: *default
