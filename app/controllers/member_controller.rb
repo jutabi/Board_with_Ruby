@@ -8,7 +8,8 @@ class MemberController < ApplicationController
                   password: params[:password],
                   password_confirmation: params[:password_confirmation],
                   email: params[:email],
-                  nickname: params[:nickname])
+                  nickname: params[:nickname],
+                  user_role: 'USER')
 
     redirect_to '/member/login'
   end

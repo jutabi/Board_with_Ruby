@@ -4,9 +4,8 @@ class PostController < ApplicationController
   def write; end
 
   def create
-    member = Member.find_by(username: session[:username])
-    Post.create(member_id: member.id,
-                member_nickname: member.nickname,
+    Post.create(member_id: current_member.id,
+                member_nickname: current_member.nickname,
                 like_count: 0,
                 hate_count: 0,
                 title: params[:title],
@@ -21,7 +20,7 @@ class PostController < ApplicationController
 
   def modify
     @post = Post.find(params[:post_id])
-    if Post.find(params[:post_id]).member_id != Member.find_by(username: session[:username]).id
+    if @post.member_id != current_member.id && current_member.user_role != 'ADMIN'
       redirect_back fallback_location: ''
     end
   end
@@ -37,7 +36,7 @@ class PostController < ApplicationController
 
   def remove
     post = Post.find(params[:post_id])
-    if post.member_id == Member.find_by(username: session[:username]).id
+    if post.member_id == current_member.id || current_member.user_role == 'ADMIN'
       post.post_likes.each(&:delete)
       post.replies.each(&:delete)
       post.delete

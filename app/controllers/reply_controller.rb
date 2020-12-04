@@ -1,8 +1,7 @@
 class ReplyController < ApplicationController
   def create
-    member = Member.find_by(username: session[:username])
-    Reply.create(member_id: member.id,
-                 member_nickname: member.nickname,
+    Reply.create(member_id: current_member.id,
+                 member_nickname: current_member.nickname,
                  post_id: params[:post_id],
                  content: params[:content])
 
@@ -22,7 +21,7 @@ class ReplyController < ApplicationController
   def update
     reply = Reply.find(params[:reply_id])
     post_id = reply.post_id
-    if current_member.id == reply.member_id
+    if current_member.id == reply.member_id || current_member.user_role == 'ADMIN'
       reply.content = params[:content]
       reply.save
     end
@@ -33,7 +32,7 @@ class ReplyController < ApplicationController
   def remove
     reply = Reply.find(params[:reply_id])
     post_id = reply.post_id
-    reply.delete if current_member.id == reply.member_id
+    reply.delete if current_member.id == reply.member_id || current_member.user_role == 'ADMIN'
 
     # redirect_to '/post/view/' + reply.post_id.to_s
     # redirect_back fallback_location: ''

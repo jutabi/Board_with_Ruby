@@ -67,7 +67,7 @@
         </div>
         <div>
           <% if member_logged_in? %>
-            <% if current_member.id == @post.member_id %>
+            <% if current_member.id == @post.member_id || current_member.user_role == 'ADMIN' %>
               <button onclick="location.href='/post/modify/<%= @post.id %>'">수정하기</button>
               <button onclick="location.href='/post/remove/<%= @post.id %>'">삭제하기</button>
             <% end %>

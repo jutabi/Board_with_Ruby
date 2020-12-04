@@ -5,6 +5,7 @@ class CreateMembers < ActiveRecord::Migration[6.0]
       t.string :password_digest
       t.string :email
       t.string :nickname
+      t.string :user_role
       t.timestamps
     end
   end
