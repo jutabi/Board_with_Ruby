@@ -14,7 +14,6 @@
   <body>
     <nav>
       <div class="nav-wrapper">
-<!--        <a href="/" class="brand-logo center">Logo</a>-->
         <div style="display: flex; justify-content: space-between">
           <div style="display: flex; justify-content: flex-start">
             <ul class="right-border-nav-menu">
@@ -27,13 +26,17 @@
           <div style="display: flex; justify-content: flex-end">
             <ul class="left-border-nav-menu">
               <% if member_logged_in? %>
-                <li id="nav-modify"><a href="/member/modify" style="padding: 0">
+                <li id="nav-modify" style="visibility: hidden"><a href="/member/modify" style="padding: 0">
                   <p style="font-size: 0.8rem">Membership</p>
                   Modify</a></li>
-                <li id="nav-withdrawal"><a href="/member/withdrawal" style="padding: 0">
+                <li id="nav-withdrawal" style="visibility: hidden"><a href="/member/withdrawal" style="padding: 0">
                   <p style="font-size: 0.8rem">Membership</p>
                   withdrawal</a></li>
-                <li id="nav-logout"><a href="/member/logout">Log Out</a></li>
+                <li id="nav-logout" style="visibility: hidden"><a href="/member/logout">
+                  Log Out</a></li>
+                <li id="nav-dropdown"><a style="cursor: pointer; padding: 0" class="disable_drag">
+                  <p style="font-size: 0.8rem"><%= current_member.nickname %></p>
+                  Menu</a></li>
               <% else %>
                 <li id="nav-register"><a href="/member/register">Register</a></li>
                 <li id="nav-login"><a href="/member/login">Log In</a></li>
@@ -55,6 +58,22 @@
                 document.getElementById('nav-register').className = "active-nav-menu";
             } else if (location.pathname === '/member/login') {
                 document.getElementById('nav-login').className = "active-nav-menu";
+            }
+
+            memberMenu = document.getElementById("nav-dropdown");
+            dropdown1 = document.getElementById("nav-modify");
+            dropdown2 = document.getElementById("nav-withdrawal");
+            dropdown3 = document.getElementById("nav-logout");
+            memberMenu.onclick = function () {
+                if (dropdown1.style.visibility === "hidden") {
+                    dropdown1.style = "visibility: visible;"
+                    dropdown2.style = "visibility: visible;"
+                    dropdown3.style = "visibility: visible;"
+                } else if (dropdown1.style.visibility === "visible") {
+                    dropdown1.style = "visibility: hidden;"
+                    dropdown2.style = "visibility: hidden;"
+                    dropdown3.style = "visibility: hidden;"
+                }
             }
         </script>
       </div>

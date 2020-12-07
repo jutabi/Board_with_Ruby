@@ -22,7 +22,7 @@ jobs:
             echo start
             cd /Rails_Project/Board_with_Ruby/
             git pull
-            git checkout develop
+            git checkout master
             docker-compose up -d --build --always-recreate-deps
             docker-compose start
             echo end'
